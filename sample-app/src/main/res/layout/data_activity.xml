@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Switch
+        android:id="@+id/multipledExpanding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/multiplied_expanding"
+        android:padding="@dimen/padding_default"
+        android:switchPadding="@dimen/padding_default"
+        android:gravity="right|center_vertical"
+        android:textSize="@dimen/font_default"
+        android:layout_marginBottom="@dimen/offset_default"/>
+
+    <Switch
+        android:id="@+id/alwaysExpanded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/always_expanded"
+        android:padding="@dimen/padding_default"
+        android:switchPadding="@dimen/padding_default"
+        android:gravity="right|center_vertical"
+        android:textSize="@dimen/font_default"
+        android:layout_marginBottom="@dimen/offset_default"/>
+
+    <pl.openrnd.multilevellistview.MultiLevelListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:alwaysExtended="false"
+        app:nestType="multiple" />
+
+</LinearLayout>

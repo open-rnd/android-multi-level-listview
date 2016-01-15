@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="@dimen/data_item_row_height"
+    android:padding="@dimen/data_item_row_padding"
+    android:layout_width="match_parent">
+
+    <pl.openrnd.multilevellistview.sample.views.LevelBeamView
+        android:id="@+id/dataItemLevelBeam"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/data_item_row_height" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="left|center_vertical"
+        android:layout_toLeftOf="@+id/dataItemArrow"
+        android:layout_toRightOf="@+id/dataItemLevelBeam"
+        android:layout_marginLeft="@dimen/offset_default"
+        android:layout_marginRight="@dimen/offset_default">
+        <TextView
+            android:singleLine="true"
+            android:id="@+id/dataItemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_default"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:singleLine="true"
+            android:id="@+id/dataItemInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_small"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/dataItemArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/arrow_down"/>
+
+</RelativeLayout>
