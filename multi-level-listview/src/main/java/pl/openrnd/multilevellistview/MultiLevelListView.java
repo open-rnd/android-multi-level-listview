@@ -208,32 +208,35 @@ public class MultiLevelListView extends FrameLayout {
         /**
          * Notifies that certain node was clicked.
          *
+         * @param view Clicked view (provided by the adapter).
          * @param node Clicked node.
          */
-        private void notifyItemClicked(Node node) {
+        private void notifyItemClicked(View view, Node node) {
             if (mOnItemClickListener != null) {
-                mOnItemClickListener.onItemClicked(MultiLevelListView.this, node.getObject(), node.getItemInfo());
+                mOnItemClickListener.onItemClicked(MultiLevelListView.this, view, node.getObject(), node.getItemInfo());
             }
         }
 
         /**
          * Notifies that certain group node was clicked.
          *
+         * @param view Clicked view (provided by the adapter).
          * @param node Clicked group node.
          */
-        private void notifyGroupItemClicked(Node node) {
+        private void notifyGroupItemClicked(View view, Node node) {
             if (mOnItemClickListener != null) {
-                mOnItemClickListener.onGroupItemClicked(MultiLevelListView.this, node.getObject(), node.getItemInfo());
+                mOnItemClickListener.onGroupItemClicked(MultiLevelListView.this, view, node.getObject(), node.getItemInfo());
             }
         }
 
         /**
          * Handles certain node click event.
          *
+         * @param view Clicked view (provided by the adapter).
          * @param node Clicked node
          */
-        private void onItemClicked(Node node) {
-            notifyItemClicked(node);
+        private void onItemClicked(View view, Node node) {
+            notifyItemClicked(view, node);
         }
 
         /**
@@ -253,9 +256,10 @@ public class MultiLevelListView extends FrameLayout {
         /**
          * Notifies certain group node click event.
          *
+         * @param view Clicked view (provided by the adapter).
          * @param node Clicked group node.
          */
-        private void onGroupItemClicked(Node node) {
+        private void onGroupItemClicked(View view, Node node) {
             boolean isExpanded = node.isExpanded();
             if (!isAlwaysExpanded()) {
                 if (isExpanded) {
@@ -269,7 +273,7 @@ public class MultiLevelListView extends FrameLayout {
                 scrollToItemIfNeeded(mAdapter.getFlatItems().indexOf(node));
             }
 
-            notifyGroupItemClicked(node);
+            notifyGroupItemClicked(view, node);
         }
 
         /**
@@ -279,13 +283,11 @@ public class MultiLevelListView extends FrameLayout {
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             Node node = mAdapter.getFlatItems().get(position);
             if (node.isExpandable()) {
-                onGroupItemClicked(node);
+                onGroupItemClicked(view, node);
             } else {
-                onItemClicked(node);
+                onItemClicked(view, node);
             }
         }
     }
-
-    ;
 }
 
