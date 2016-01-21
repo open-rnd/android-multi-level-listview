@@ -111,12 +111,12 @@ public class DataActivity extends Activity {
         }
 
         @Override
-        public void onItemClicked(MultiLevelListView view, Object item, ItemInfo itemInfo) {
+        public void onItemClicked(MultiLevelListView parent, View view, Object item, ItemInfo itemInfo) {
             showItemDescription(item, itemInfo);
         }
 
         @Override
-        public void onGroupItemClicked(MultiLevelListView view, Object item, ItemInfo itemInfo) {
+        public void onGroupItemClicked(MultiLevelListView parent, View view, Object item, ItemInfo itemInfo) {
             showItemDescription(item, itemInfo);
         }
     };
