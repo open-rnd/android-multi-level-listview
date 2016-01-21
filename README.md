@@ -39,7 +39,7 @@ Add library dependence:
 
 
 dependencies {
-    compile group: "pl.openrnd.android", name: "multi-level-listview", version: "1.0.0"
+    compile group: "pl.openrnd.android", name: "multi-level-listview", version: "1.0.1"
 }
 
 
