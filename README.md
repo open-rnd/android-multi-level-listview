@@ -23,23 +23,17 @@ For detailed information how to use the library please check included sample app
 
 ### Project integration
 
-Add repository reference in your build.gradle file:
+Maven:
+<dependency>
+  <groupId>pl.openrnd.android</groupId>
+  <artifactId>multi-level-listview</artifactId>
+  <version>1.0.1</version>
+  <type>pom</type>
+</dependency>
 
-
-repositories {
-    ...
-    maven {
-        url 'http://dev.open-rnd.net:30844/content/groups/public/'
-    }
-    ...
-}
-
-
-Add library dependence:
-
-
+Gradle:
 dependencies {
-    compile group: "pl.openrnd.android", name: "multi-level-listview", version: "1.0.1"
+    compile 'pl.openrnd.android:multi-level-listview:1.0.1'
 }
 
 
