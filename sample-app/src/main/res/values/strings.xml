@@ -3,4 +3,5 @@
     <string name="app_name">MultiLevelListView Sample</string>
     <string name="multiplied_expanding">Multiplied expanding</string>
     <string name="always_expanded">Always expanded</string>
+    <string name="group_2_initially_expanded">Group 2 initially expanded</string>
 </resources>

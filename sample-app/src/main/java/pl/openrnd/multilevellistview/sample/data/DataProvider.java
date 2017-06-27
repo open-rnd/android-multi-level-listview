@@ -28,24 +28,25 @@ public class DataProvider {
      * Following variables refer only to data generation process.
      * For instance, if ITEMS_PER_LEVEL = 2 and MAX_LEVELS = 3,
      * list should look like this:
-     *      + 1
-     *      | + 1.1
-     *      | - - 1.1.1
-     *      | - - 1.1.2
-     *      | + 1.2
-     *      | - - 1.2.1
-     *      | - - 1.2.2
-     *      | - - 1.2.3
-     *      + 2
-     *      | + 2.1
-     *      | - - 2.1.1
-     *      | - - 2.1.2
-     *      | + 2.2
-     *      | - - 2.2.1
-     *      | - - 2.2.2
+     * + 1
+     * | + 1.1
+     * | - - 1.1.1
+     * | - - 1.1.2
+     * | + 1.2
+     * | - - 1.2.1
+     * | - - 1.2.2
+     * | - - 1.2.3
+     * + 2
+     * | + 2.1
+     * | - - 2.1.1
+     * | - - 2.1.2
+     * | + 2.2
+     * | - - 2.2.1
+     * | - - 2.2.2
      */
     private static final int ITEMS_PER_LEVEL = 4;
     private static final int MAX_LEVELS = 6;
+    private static boolean isGroup2InitiallyExpanded = false;
 
     public static List<BaseItem> getInitialItems() {
         return getSubItems(new GroupItem("root"));
@@ -56,8 +57,8 @@ public class DataProvider {
             throw new IllegalArgumentException("GroupItem required");
         }
 
-        GroupItem groupItem = (GroupItem)baseItem;
-        if(groupItem.getLevel() >= MAX_LEVELS){
+        GroupItem groupItem = (GroupItem) baseItem;
+        if (groupItem.getLevel() >= MAX_LEVELS) {
             return null;
         }
 
@@ -70,7 +71,7 @@ public class DataProvider {
             BaseItem item;
             if (i % 2 == 0 && nextLevel != MAX_LEVELS) {
                 item = new GroupItem("Group " + Integer.toString(++groupNr));
-                ((GroupItem)item).setLevel(nextLevel);
+                ((GroupItem) item).setLevel(nextLevel);
             } else {
                 item = new Item("Item " + Integer.toString(++itemNr));
             }
@@ -81,5 +82,13 @@ public class DataProvider {
 
     public static boolean isExpandable(BaseItem baseItem) {
         return baseItem instanceof GroupItem;
+    }
+
+    public static boolean isInitiallyExpanded(BaseItem baseItem) {
+        return isGroup2InitiallyExpanded && baseItem.getName().startsWith("Group 2");
+    }
+
+    public static void setGroup2InitiallyExpanded(boolean expanded) {
+        isGroup2InitiallyExpanded = expanded;
     }
 }

@@ -47,7 +47,7 @@ public abstract class MultiLevelListAdapter {
 
     /**
      * Gets list of object's sub-items.
-     *
+     * <p>
      * Called only for expandable objects.
      *
      * @param object The object.
@@ -58,12 +58,24 @@ public abstract class MultiLevelListAdapter {
     /**
      * Gets view configured to display the object.
      *
-     * @param object The object.
+     * @param object      The object.
      * @param convertView The view that can be reused if possible. Null value if not available.
-     * @param itemInfo The InfoItem object with information about item location in MultiLevelListView.
+     * @param itemInfo    The InfoItem object with information about item location in MultiLevelListView.
      * @return The view that reflects the object.
      */
     protected abstract View getViewForObject(Object object, View convertView, ItemInfo itemInfo);
+
+    /**
+     * Indicates if object is expanded initially.
+     * You can override this method to specify different objects' behaviour.
+     * This method will NOT be called if {@link #isExpandable(Object)} returns false or {@link MultiLevelListView#isAlwaysExpanded()} returns true.
+     *
+     * @param object The object.
+     * @return true if object is expanded, false otherwise.
+     */
+    protected boolean isInitiallyExpanded(Object object) {
+        return false;
+    }
 
     /**
      * Sets initial data items to be displayed in attached MultiLevelListView.
@@ -93,7 +105,7 @@ public abstract class MultiLevelListAdapter {
     /**
      * Reloads data. Method is causing nodes recreation.
      */
-    void reloadData() {
+    public void reloadData() {
         setDataItems(mSourceData);
     }
 
@@ -110,7 +122,7 @@ public abstract class MultiLevelListAdapter {
      * Creates list of nodes for data items provided to adapter.
      *
      * @param dataItems List of objects for which nodes have to be created.
-     * @param parent Node that is a parent for nodes created for data items.
+     * @param parent    Node that is a parent for nodes created for data items.
      * @return List with nodes.
      */
     private List<Node> createNodeListFromDataItems(List<?> dataItems, Node parent) {
@@ -121,7 +133,7 @@ public abstract class MultiLevelListAdapter {
 
                 Node node = new Node(dataItem, parent);
                 node.setExpandable(isExpandable);
-                if (mView.isAlwaysExpanded() && isExpandable) {
+                if (isExpandable && (mView.isAlwaysExpanded() || isInitiallyExpanded(dataItem))) {
                     node.setSubNodes(createNodeListFromDataItems(getSubObjects(node.getObject()), node));
                 }
                 result.add(node);
@@ -145,7 +157,7 @@ public abstract class MultiLevelListAdapter {
      * Adds recurrently nodes and their sub-nodes to provided list.
      *
      * @param result Output parameter with flat list of items.
-     * @param nodes Nodes list.
+     * @param nodes  Nodes list.
      */
     private void collectItems(List<Node> result, List<Node> nodes) {
         if (nodes != null) {
@@ -205,10 +217,10 @@ public abstract class MultiLevelListAdapter {
 
     /**
      * Extends node.
-     *
+     * <p>
      * Adds sub-nodes to the node.
      *
-     * @param node The node.
+     * @param node    The node.
      * @param nestTyp NestType value.
      */
     void extendNode(Node node, NestType nestTyp) {
@@ -221,7 +233,7 @@ public abstract class MultiLevelListAdapter {
 
     /**
      * Collapse node.
-     *
+     * <p>
      * Clears node's sub-nodes.
      *
      * @param node The node
