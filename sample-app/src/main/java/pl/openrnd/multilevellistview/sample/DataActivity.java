@@ -44,8 +44,10 @@ public class DataActivity extends Activity {
     private MultiLevelListView mListView;
     private Switch mMultipliedExpandingView;
     private Switch mAlwaysExpandedView;
+    private Switch mInitiallyExpandedView;
 
     private boolean mAlwaysExpandend;
+    private ListAdapter mListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,19 +61,21 @@ public class DataActivity extends Activity {
         mListView = (MultiLevelListView) findViewById(R.id.listView);
         mMultipliedExpandingView = (Switch) findViewById(R.id.multipledExpanding);
         mAlwaysExpandedView = (Switch) findViewById(R.id.alwaysExpanded);
+        mInitiallyExpandedView = (Switch) findViewById(R.id.initiallyExpanded);
 
         mMultipliedExpandingView.setOnCheckedChangeListener(mOnCheckedChangeListener);
         mAlwaysExpandedView.setOnCheckedChangeListener(mOnCheckedChangeListener);
+        mInitiallyExpandedView.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
         setAlwaysExpanded(mAlwaysExpandedView.isChecked());
         setMultipleExpanding(mMultipliedExpandingView.isChecked());
 
-        ListAdapter listAdapter = new ListAdapter();
+        mListAdapter = new ListAdapter();
 
-        mListView.setAdapter(listAdapter);
+        mListView.setAdapter(mListAdapter);
         mListView.setOnItemClickListener(mOnItemClickListener);
 
-        listAdapter.setDataItems(DataProvider.getInitialItems());
+        mListAdapter.setDataItems(DataProvider.getInitialItems());
     }
 
     private void setAlwaysExpanded(boolean alwaysExpanded) {
@@ -82,6 +86,12 @@ public class DataActivity extends Activity {
     private void setMultipleExpanding(boolean multipleExpanding) {
         mListView.setNestType(multipleExpanding ? NestType.MULTIPLE : NestType.SINGLE);
     }
+
+    private void setInitiallyExpanded(boolean expanded) {
+        DataProvider.setGroup2InitiallyExpanded(expanded);
+        mListAdapter.reloadData();
+    }
+
 
     private CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
@@ -94,6 +104,9 @@ public class DataActivity extends Activity {
 
                 case R.id.alwaysExpanded:
                     setAlwaysExpanded(isChecked);
+                    break;
+                case R.id.initiallyExpanded:
+                    setInitiallyExpanded(isChecked);
                     break;
             }
         }
@@ -138,6 +151,11 @@ public class DataActivity extends Activity {
         @Override
         public boolean isExpandable(Object object) {
             return DataProvider.isExpandable((BaseItem) object);
+        }
+
+        @Override
+        protected boolean isInitiallyExpanded(Object object) {
+            return DataProvider.isInitiallyExpanded((BaseItem) object);
         }
 
         @Override

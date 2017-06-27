@@ -27,6 +27,17 @@
         android:textSize="@dimen/font_default"
         android:layout_marginBottom="@dimen/offset_default"/>
 
+    <Switch
+        android:id="@+id/initiallyExpanded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/group_2_initially_expanded"
+        android:padding="@dimen/padding_default"
+        android:switchPadding="@dimen/padding_default"
+        android:gravity="right|center_vertical"
+        android:textSize="@dimen/font_default"
+        android:layout_marginBottom="@dimen/offset_default"/>
+
     <pl.openrnd.multilevellistview.MultiLevelListView
         android:id="@+id/listView"
         android:layout_width="match_parent"

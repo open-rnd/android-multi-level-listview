@@ -105,7 +105,7 @@ public abstract class MultiLevelListAdapter {
     /**
      * Reloads data. Method is causing nodes recreation.
      */
-    void reloadData() {
+    public void reloadData() {
         setDataItems(mSourceData);
     }
 
